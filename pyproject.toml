@@ -1,0 +1,162 @@
+# ==================
+# Project definition
+# ==================
+
+# Derived from https://peps.python.org/pep-0621/
+
+[project]
+name = "pytest-mqtt"
+version = "0.0.0"
+description = "pytest-mqtt supports testing systems based on MQTT"
+readme = "README.rst"
+requires-python = ">=3.6"
+license = {text = "MIT"}
+keywords = ["mqtt", "pytest", "testing", "mosquitto", "paho"]
+authors = [
+  {name = "Andreas Motl", email = "andreas.motl@panodata.org"},
+  {name = "Richard Pobering", email = "richard.pobering@panodata.org"},
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Framework :: Pytest",
+  "Intended Audience :: Customer Service",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: Legal Industry",
+  "Intended Audience :: Manufacturing",
+  "Intended Audience :: System Administrators",
+  "Intended Audience :: Telecommunications Industry",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Unix",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Communications",
+  "Topic :: Education",
+  "Topic :: Home Automation",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Object Brokering",
+  "Topic :: System :: Hardware",
+  "Topic :: System :: Logging",
+  "Topic :: System :: Monitoring",
+  "Topic :: System :: Networking",
+  "Topic :: System :: Networking :: Monitoring",
+  "Topic :: System :: Systems Administration",
+  "Topic :: Utilities",
+]
+
+dependencies = [
+  "dataclasses; python_version<'3.7'",
+  "importlib-metadata; python_version<'3.8'",
+  "paho-mqtt<2",
+  "pytest-docker-fixtures<2",
+]
+
+[project.entry-points.pytest11]
+capmqtt = "pytest_mqtt.capmqtt"
+mosquitto = "pytest_mqtt.mosquitto"
+
+[project.optional-dependencies]
+test = [
+  "coverage<7",
+  "pytest<8",
+  "pytest-fixture-order<1",
+  "pytest-ordering<1",
+]
+develop = [
+  "isort<6",
+  "black<23",
+  "build<1",
+  "poethepoet<1",
+  "ruff",
+]
+
+[tool.setuptools]
+# https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+packages = ["pytest_mqtt"]
+
+[project.urls]
+homepage = "https://github.com/mqtt-tools/pytest-mqtt"
+documentation = "https://github.com/mqtt-tools/pytest-mqtt"
+repository = "https://github.com/mqtt-tools/pytest-mqtt"
+changelog = "https://github.com/mqtt-tools/pytest-mqtt/blob/main/CHANGES.rst"
+
+
+# ==================
+# Tool configuration
+# ==================
+
+# Configuration snippets for Black, isort, pytest, coverage, and ruff.
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+skip_glob = "**/site-packages/**"
+skip_gitignore = false
+# src_paths = ["pytest_mqtt", "testing"]
+
+[tool.pytest.ini_options]
+minversion = "2.0"
+addopts = """
+  -rfEX -p pytester --strict-markers --verbosity=3
+  """
+log_level = "DEBUG"
+log_cli_level = "DEBUG"
+testpaths = ["testing"]
+xfail_strict = true
+markers = [
+  "capmqtt_decode_utf8: Capture MQTT messages as `str`, not `bytes`",
+]
+
+[tool.coverage.run]
+branch = false
+source = ["pytest_mqtt"]
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+omit = [
+]
+
+[tool.ruff]
+line-length = 120
+exclude = [
+  ".venv",
+]
+
+
+# ===================
+# Tasks configuration
+# ===================
+
+[tool.poe.tasks]
+format = [
+  {cmd="black ."},
+  {cmd="isort pytest_mqtt testing"},
+]
+check-style = [
+  {cmd="ruff ."},
+  {cmd="black --check ."},
+  {cmd="isort --check pytest_mqtt testing"},
+]
+
+# When testing a pytest plugin, `coverage` needs to be
+# started before `pytest`. `pytest-cov` will not work.
+# https://stackoverflow.com/a/62224494
+test = [
+  {cmd="coverage run -m pytest"},
+  {cmd="coverage report"},
+  {cmd="coverage xml"},
+]
+
+build = {cmd="python -m build"}
