@@ -73,9 +73,13 @@ test = [
 develop = [
   "isort<6",
   "black<23",
-  "build<1",
   "poethepoet<1",
   "ruff",
+]
+release = [
+  "build<1",
+  "minibump<1; python_version>='3.10'",
+  "twine<5",
 ]
 
 [tool.setuptools]
@@ -158,4 +162,8 @@ test = [
   {cmd="coverage xml"},
 ]
 
-build = {cmd="python -m build"}
+release = [
+  {cmd="minibump bump --relax minor"},
+  {cmd="python -m build"},
+  {cmd="twine upload dist/*"},
+]
