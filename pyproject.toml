@@ -133,9 +133,6 @@ omit = [
 
 [tool.ruff]
 line-length = 120
-exclude = [
-  ".venv",
-]
 
 
 # ===================
