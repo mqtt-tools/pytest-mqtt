@@ -7,7 +7,7 @@
     :alt: Test suite code coverage
 
 .. image:: https://pepy.tech/badge/pytest-mqtt/month
-    :target: https://pypi.org/project/pytest-mqtt/
+    :target: https://pepy.tech/project/pytest-mqtt
     :alt: PyPI downloads per month
 
 .. image:: https://img.shields.io/pypi/v/pytest-mqtt.svg
@@ -38,16 +38,8 @@ About
 *****
 
 ``pytest-mqtt`` supports testing systems based on MQTT by providing test
-fixtures for ``pytest``.
-
-It has been conceived for the fine `terkin-datalogger`_ and `mqttwarn`_
-programs.
-
-
-
-*******
-Details
-*******
+fixtures for ``pytest``. It has been conceived for the fine
+`terkin-datalogger`_ and `mqttwarn`_ programs.
 
 ``capmqtt`` fixture
 ===================
@@ -72,19 +64,21 @@ Usage
     def test_mqtt_send_receive(mosquitto, capmqtt):
         """
         Basic send/receive roundtrip, with ASCII text payload (`str`).
-        By using the `capmqtt_decode_utf8` marker, the payloads will also be received
-        as `str`, after decoding them from `utf-8`.
+        By using the `capmqtt_decode_utf8` marker, the message payloads
+        will also be recorded as `str`, after decoding them from `utf-8`.
         """
 
-        # Submit two MQTT messages.
+        # Submit a basic MQTT message.
         capmqtt.publish(topic="foo", payload="bar")
 
-        # Demonstrate the `messages` property.
+        # Demonstrate the "messages" property.
+        # It returns a list of "MqttMessage" objects.
         assert capmqtt.messages == [
             MqttMessage(topic="foo", payload="bar", userdata=None),
         ]
 
-        # Demonstrate the `records` property.
+        # Demonstrate the "records" property.
+        # It returns tuples of "(topic, payload, userdata)".
         assert capmqtt.records == [
             ("foo", "bar", None),
         ]
