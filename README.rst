@@ -60,12 +60,16 @@ Usage
 
 ::
 
+    from pytest_mqtt.model import MqttMessage
+
     @pytest.mark.capmqtt_decode_utf8
     def test_mqtt_send_receive(mosquitto, capmqtt):
         """
-        Basic send/receive roundtrip, with ASCII text payload (`str`).
+        Basic send/receive roundtrip, using text payload (`str`).
+
         By using the `capmqtt_decode_utf8` marker, the message payloads
-        will also be recorded as `str`, after decoding them from `utf-8`.
+        will be recorded as `str`, after decoding them from `utf-8`.
+        Otherwise, message payloads would be recorded as `bytes`.
         """
 
         # Submit a basic MQTT message.
@@ -94,7 +98,7 @@ The ``capmqtt_decode_utf8`` setting can be enabled in three ways.
           pytestconfig.option.capmqtt_decode_utf8 = True
 
 2. On the module level, just say ``capmqtt_decode_utf8 = True`` on top of your file.
-3. On individual test cases as a test case marker.
+3. On individual test cases as a test case marker, using ``@pytest.mark.capmqtt_decode_utf8``.
 
 
 ******
