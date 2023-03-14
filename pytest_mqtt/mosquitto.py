@@ -36,6 +36,7 @@ images.settings["mosquitto"] = {
 class Mosquitto(BaseImage):
 
     name = "mosquitto"
+    port = 1883
 
     def check(self):
         # TODO: Add real implementation.
@@ -55,7 +56,7 @@ class Mosquitto(BaseImage):
 
     def run(self):
         self.pull_image()
-        super(Mosquitto, self).run()
+        return super(Mosquitto, self).run()
 
 
 mosquitto_image = Mosquitto()
