@@ -95,7 +95,7 @@ class MqttCaptureFixture:
             userdata=userdata,
         )
         self._buffer.append(message)
-        logger.debug("[PYTEST] MQTT message received: %s", message)
+        logger.debug("[PYTEST] MQTT message received: %s", str(message)[:200])
 
     def finalize(self) -> None:
         """Finalizes the fixture."""
