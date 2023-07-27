@@ -163,5 +163,5 @@ test = [
 release = [
   {cmd="minibump bump --relax minor"},
   {cmd="python -m build"},
-  {cmd="twine upload dist/*"},
+  {cmd="twine upload --skip-existing dist/*.tar.gz dist/*.whl"},
 ]
