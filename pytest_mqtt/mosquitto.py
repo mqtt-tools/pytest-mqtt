@@ -44,7 +44,7 @@ class Mosquitto(BaseImage):
 
     def pull_image(self):
         """
-        Image needs to be pull explicitly.
+        Image needs to be pulled explicitly.
         Workaround against `404 Client Error: Not Found for url: http+docker://localhost/v1.23/containers/create`.
 
         - https://github.com/jpmens/mqttwarn/pull/589#issuecomment-1249680740
