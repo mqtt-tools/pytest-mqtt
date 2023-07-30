@@ -55,8 +55,11 @@ class Mosquitto(BaseImage):
         docker_client.images.pull(image_name)
 
     def run(self):
-        docker_client = docker.from_env(version=self.docker_version)
-        docker_url = docker_client.api.base_url
+        try:
+            docker_client = docker.from_env(version=self.docker_version)
+            docker_url = docker_client.api.base_url
+        except Exception:
+            raise ConnectionError("Cannot connect to the Docker daemon. Is the docker daemon running?")
         try:
             docker_client.ping()
         except Exception:
