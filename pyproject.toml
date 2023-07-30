@@ -141,11 +141,17 @@ line-length = 120
 # ===================
 
 [tool.poe.tasks]
+
+check = [
+  "lint",
+  "test",
+]
+
 format = [
   {cmd="black ."},
   {cmd="isort pytest_mqtt testing"},
 ]
-check-style = [
+lint = [
   {cmd="ruff ."},
   {cmd="black --check ."},
   {cmd="isort --check pytest_mqtt testing"},
