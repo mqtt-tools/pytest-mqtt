@@ -6,6 +6,8 @@ pytest-mqtt changelog
 in progress
 ===========
 
+- Fix improving error handling when Docker daemon is not running.
+
 
 2023-07-28 0.3.0
 ================
