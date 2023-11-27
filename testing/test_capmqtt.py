@@ -3,8 +3,12 @@ from pytest_mqtt.util import delay
 
 
 def test_mqtt_client_adapter(mosquitto):
-    mqtt_client = MqttClientAdapter()
+    host, port = mosquitto
+    mqtt_client = MqttClientAdapter(host=host, port=port)
     mqtt_client.start()
+
+    assert mqtt_client.client._host == host
+    assert mqtt_client.client._port == int(port)
 
     # Submit MQTT message.
     message_info = mqtt_client.publish("foo", "bar")
