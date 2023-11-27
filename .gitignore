@@ -4,6 +4,8 @@
 /.ruff_cache
 /.vagrant
 /.venv*
+/.github
+/build
 
 /dist
 

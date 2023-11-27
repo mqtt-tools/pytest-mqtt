@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # Copyright (c) 2020-2022 Andreas Motl <andreas.motl@panodata.org>
 # Copyright (c) 2020-2022 Richard Pobering <richard.pobering@panodata.org>
 #
@@ -36,7 +37,10 @@ images.settings["mosquitto"] = {
 class Mosquitto(BaseImage):
 
     name = "mosquitto"
-    port = 1883
+
+    def __init__(self, host: str = "localhost", port: int = 1883) -> None:
+        self.host = host
+        self.port = port
 
     def check(self):
         # TODO: Add real implementation.
@@ -71,16 +75,18 @@ class Mosquitto(BaseImage):
 mosquitto_image = Mosquitto()
 
 
-def is_mosquitto_running() -> bool:
-    return probe_tcp_connect("localhost", 1883)
+def is_mosquitto_running(host: str, port: int) -> bool:
+    return probe_tcp_connect(host, port)
 
 
 @pytest.fixture(scope="session")
-def mosquitto():
+def mosquitto(request, mqttcliargs):
+
+    host, port = mqttcliargs
 
     # Gracefully skip spinning up the Docker container if Mosquitto is already running.
-    if is_mosquitto_running():
-        yield "localhost", 1883
+    if is_mosquitto_running(host, port):
+        yield host, port
         return
 
     # Spin up Mosquitto container.

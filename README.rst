@@ -47,6 +47,9 @@ fixtures for ``pytest``. It has been conceived for the fine
 Capture MQTT messages, using the `Paho MQTT Python Client`_, in the spirit of
 ``caplog`` and ``capsys``. It can also be used to publish MQTT messages.
 
+MQTT server host and port are configurable via pytest cli arguments:
+``mqtt_host`` and ``mqtt_port`` (defaults to ``localhost`` and ``1883``)
+
 ``mosquitto`` fixture
 =====================
 
@@ -104,9 +107,6 @@ The ``capmqtt_decode_utf8`` setting can be enabled in three ways.
 ******
 Issues
 ******
-
-- Both fixtures currently do not support changing the MQTT broker hostname and
-  port number differently than ``localhost:1883``.
 
 - The ``mosquitto`` fixture currently does not support either authentication or
   encryption.
