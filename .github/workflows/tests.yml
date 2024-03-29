@@ -23,13 +23,17 @@ jobs:
       matrix:
         os: ["ubuntu-latest"]
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        paho-mqtt-version: ["1.*", "2.*"]
       fail-fast: false
 
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
 
-    name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
+    name:
+      Python ${{ matrix.python-version }},
+      paho-mqtt ${{ matrix.paho-mqtt-version }}
+      on OS ${{ matrix.os }}
     steps:
 
     - name: Acquire sources
@@ -52,6 +56,9 @@ jobs:
 
         # Install package in editable mode.
         pip install --editable=.[test,develop]
+
+        # Explicitly install designated version of paho-mqtt.
+        pip install --upgrade 'paho-mqtt==${{ matrix.paho-mqtt-version }}'
 
     - name: Check code style
       if: matrix.python-version != '3.6' && matrix.python-version != '3.7'

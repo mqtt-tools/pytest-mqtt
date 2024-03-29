@@ -29,7 +29,13 @@ logger = logging.getLogger(__name__)
 class MqttClientAdapter(threading.Thread):
     def __init__(self, on_message_callback: t.Optional[t.Callable] = None, host: str = "localhost", port: int = 1883):
         super().__init__()
-        self.client: mqtt.Client = mqtt.Client()
+        self.client: mqtt.Client
+        if not hasattr(mqtt, "CallbackAPIVersion"):
+            # paho-mqtt 1.x
+            self.client = mqtt.Client()
+        else:
+            # paho-mqtt 2.x
+            self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
         self.on_message_callback = on_message_callback
         self.host = host
         self.port = int(port)
