@@ -73,7 +73,7 @@ test = [
 ]
 develop = [
   "isort<6",
-  "black<23",
+  "black<25",
   "poethepoet<1",
   "ruff",
 ]
