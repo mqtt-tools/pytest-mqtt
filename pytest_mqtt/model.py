@@ -11,3 +11,9 @@ class MqttMessage:
     topic: str
     payload: t.Union[str, bytes]
     userdata: t.Optional[t.Union[t.Dict, None]]
+
+
+@dataclasses.dataclass
+class MqttSettings:
+    host: str
+    port: int

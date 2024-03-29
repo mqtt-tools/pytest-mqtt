@@ -61,7 +61,6 @@ dependencies = [
 ]
 
 [project.entry-points.pytest11]
-mqttcliargs = "pytest_mqtt.mqttcliargs"
 capmqtt = "pytest_mqtt.capmqtt"
 mosquitto = "pytest_mqtt.mosquitto"
 

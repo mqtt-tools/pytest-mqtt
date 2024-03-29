@@ -5,6 +5,9 @@ pytest-mqtt changelog
 
 in progress
 ===========
+- Accept command line options ``--mqtt-host`` and ``--mqtt-port``,
+  in order to connect to an MQTT broker on a different endpoint
+  than ``localhost:1883``. Thanks, @zedfmario.
 
 
 2023-08-03 0.3.1
