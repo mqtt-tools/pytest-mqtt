@@ -78,7 +78,7 @@ develop = [
   "ruff",
 ]
 release = [
-  "build<1",
+  "build<2",
   "minibump<1; python_version>='3.10'",
   "twine<5",
 ]
