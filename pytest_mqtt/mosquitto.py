@@ -21,6 +21,7 @@ import pytest
 from pytest_docker_fixtures import images
 from pytest_docker_fixtures.containers._base import BaseImage
 
+from pytest_mqtt.model import MqttSettings
 from pytest_mqtt.util import probe_tcp_connect
 
 images.settings["mosquitto"] = {
@@ -80,9 +81,9 @@ def is_mosquitto_running(host: str, port: int) -> bool:
 
 
 @pytest.fixture(scope="session")
-def mosquitto(request, mqttcliargs):
+def mosquitto(mqtt_settings: MqttSettings):
 
-    host, port = mqttcliargs
+    host, port = mqtt_settings.host, mqtt_settings.port
 
     # Gracefully skip spinning up the Docker container if Mosquitto is already running.
     if is_mosquitto_running(host, port):

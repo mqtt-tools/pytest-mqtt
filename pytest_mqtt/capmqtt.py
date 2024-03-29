@@ -20,7 +20,7 @@ import typing as t
 import paho.mqtt.client as mqtt
 import pytest
 
-from pytest_mqtt.model import MqttMessage
+from pytest_mqtt.model import MqttMessage, MqttSettings
 from pytest_mqtt.util import delay
 
 logger = logging.getLogger(__name__)
@@ -121,7 +121,7 @@ class MqttCaptureFixture:
 
 
 @pytest.fixture(scope="function")
-def capmqtt(request, mqttcliargs):
+def capmqtt(request, mqtt_settings: MqttSettings):
     """Access and control MQTT messages."""
 
     # Configure `capmqtt` fixture, obtaining the `capmqtt_decode_utf8` setting from
@@ -129,7 +129,7 @@ def capmqtt(request, mqttcliargs):
     # https://docs.pytest.org/en/7.1.x/how-to/fixtures.html#fixtures-can-introspect-the-requesting-test-context
     # https://docs.pytest.org/en/7.1.x/how-to/fixtures.html#using-markers-to-pass-data-to-fixtures
 
-    host, port = mqttcliargs
+    host, port = mqtt_settings.host, mqtt_settings.port
 
     capmqtt_decode_utf8 = (
         getattr(request.config.option, "capmqtt_decode_utf8", False)

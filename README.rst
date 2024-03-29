@@ -48,7 +48,7 @@ Capture MQTT messages, using the `Paho MQTT Python Client`_, in the spirit of
 ``caplog`` and ``capsys``. It can also be used to publish MQTT messages.
 
 MQTT server host and port are configurable via pytest cli arguments:
-``mqtt_host`` and ``mqtt_port`` (defaults to ``localhost`` and ``1883``)
+``--mqtt-host`` and ``--mqtt-port``. Default values are ``localhost``/``1883``.
 
 ``mosquitto`` fixture
 =====================
