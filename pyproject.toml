@@ -80,7 +80,7 @@ develop = [
 release = [
   "build<1",
   "minibump<1; python_version>='3.10'",
-  "twine<5",
+  "twine<6",
 ]
 
 [tool.setuptools]
