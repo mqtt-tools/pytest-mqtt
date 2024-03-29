@@ -1,36 +1,43 @@
-.. image:: https://github.com/mqtt-tools/pytest-mqtt/actions/workflows/tests.yml/badge.svg
-    :target: https://github.com/mqtt-tools/pytest-mqtt/actions/workflows/tests.yml
-    :alt: CI outcome
-
-.. image:: https://codecov.io/gh/mqtt-tools/pytest-mqtt/branch/main/graph/badge.svg
-    :target: https://codecov.io/gh/mqtt-tools/pytest-mqtt
-    :alt: Test suite code coverage
-
-.. image:: https://pepy.tech/badge/pytest-mqtt/month
-    :target: https://pepy.tech/project/pytest-mqtt
-    :alt: PyPI downloads per month
-
-.. image:: https://img.shields.io/pypi/v/pytest-mqtt.svg
-    :target: https://pypi.org/project/pytest-mqtt/
-    :alt: Package version on PyPI
-
-.. image:: https://img.shields.io/pypi/status/pytest-mqtt.svg
-    :target: https://pypi.org/project/pytest-mqtt/
-    :alt: Project status (alpha, beta, stable)
-
-.. image:: https://img.shields.io/pypi/pyversions/pytest-mqtt.svg
-    :target: https://pypi.org/project/pytest-mqtt/
-    :alt: Supported Python versions
-
-.. image:: https://img.shields.io/pypi/l/pytest-mqtt.svg
-    :target: https://github.com/mqtt-tools/pytest-mqtt/blob/main/LICENSE
-    :alt: Project license
-
-|
-
 ###########
 pytest-mqtt
 ###########
+
+|
+
+.. start-badges
+
+|ci-tests| |ci-coverage| |license| |pypi-downloads|
+|python-versions| |status| |pypi-version|
+
+.. |ci-tests| image:: https://github.com/mqtt-tools/pytest-mqtt/actions/workflows/tests.yml/badge.svg
+    :target: https://github.com/mqtt-tools/pytest-mqtt/actions/workflows/tests.yml
+    :alt: CI outcome
+
+.. |ci-coverage| image:: https://codecov.io/gh/mqtt-tools/pytest-mqtt/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/mqtt-tools/pytest-mqtt
+    :alt: Test suite code coverage
+
+.. |pypi-downloads| image:: https://pepy.tech/badge/pytest-mqtt/month
+    :target: https://pepy.tech/project/pytest-mqtt
+    :alt: PyPI downloads per month
+
+.. |pypi-version| image:: https://img.shields.io/pypi/v/pytest-mqtt.svg
+    :target: https://pypi.org/project/pytest-mqtt/
+    :alt: Package version on PyPI
+
+.. |status| image:: https://img.shields.io/pypi/status/pytest-mqtt.svg
+    :target: https://pypi.org/project/pytest-mqtt/
+    :alt: Project status (alpha, beta, stable)
+
+.. |python-versions| image:: https://img.shields.io/pypi/pyversions/pytest-mqtt.svg
+    :target: https://pypi.org/project/pytest-mqtt/
+    :alt: Supported Python versions
+
+.. |license| image:: https://img.shields.io/pypi/l/pytest-mqtt.svg
+    :target: https://github.com/mqtt-tools/pytest-mqtt/blob/main/LICENSE
+    :alt: Project license
+
+.. end-badges
 
 
 *****
