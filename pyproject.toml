@@ -9,7 +9,7 @@ name = "pytest-mqtt"
 version = "0.3.1"
 description = "pytest-mqtt supports testing systems based on MQTT"
 readme = "README.rst"
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 license = {text = "MIT"}
 keywords = ["mqtt", "pytest", "testing", "mosquitto", "paho"]
 authors = [

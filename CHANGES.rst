@@ -10,7 +10,6 @@ in progress
   than ``localhost:1883``. Thanks, @zedfmario.
 - Add support for paho-mqtt 2.x, retaining compatibility for 1.x
 
-
 2023-08-03 0.3.1
 ================
 
