@@ -67,7 +67,7 @@ mosquitto = "pytest_mqtt.mosquitto"
 [project.optional-dependencies]
 test = [
   "coverage<8",
-  "pytest<8",
+  "pytest<9",
   "pytest-fixture-order<1",
   "pytest-ordering<1",
 ]
