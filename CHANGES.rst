@@ -5,6 +5,9 @@ pytest-mqtt changelog
 
 in progress
 ===========
+
+2024-05-08 0.4.1
+================
 - Fix command line options machinery by refactoring essential
   pytest fixtures to the main package. They have been added to ``testing``
   beforehand, which is just plain wrong, and broke the 0.4.0 release.

@@ -6,7 +6,7 @@
 
 [project]
 name = "pytest-mqtt"
-version = "0.4.0"
+version = "0.4.1"
 description = "pytest-mqtt supports testing systems based on MQTT"
 readme = "README.rst"
 requires-python = ">=3.7"
@@ -167,7 +167,7 @@ test = [
 ]
 
 release = [
-  {cmd="minibump bump --relax minor"},
+  {cmd="minibump bump --relax patch"},
   {cmd="python -m build"},
   {cmd="twine upload --skip-existing dist/*.tar.gz dist/*.whl"},
 ]
