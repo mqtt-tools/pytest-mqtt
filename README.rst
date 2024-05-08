@@ -70,6 +70,7 @@ Usage
 
 ::
 
+    import pytest
     from pytest_mqtt.model import MqttMessage
 
     @pytest.mark.capmqtt_decode_utf8
