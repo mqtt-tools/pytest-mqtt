@@ -5,6 +5,9 @@ pytest-mqtt changelog
 
 in progress
 ===========
+
+2024-07-29 0.4.2
+================
 - Added a little delay to the Mosquitto fixture. Possibly faster GitHub
   runners made MQTT software tests fail on the LorryStream project.
 
