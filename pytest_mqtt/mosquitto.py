@@ -22,7 +22,7 @@ from pytest_docker_fixtures import images
 from pytest_docker_fixtures.containers._base import BaseImage
 
 from pytest_mqtt.model import MqttSettings
-from pytest_mqtt.util import probe_tcp_connect
+from pytest_mqtt.util import delay, probe_tcp_connect
 
 images.settings["mosquitto"] = {
     "image": "eclipse-mosquitto",
@@ -108,4 +108,5 @@ def mosquitto(mqtt_settings: MqttSettings):
         yield os.environ["MOSQUITTO"].split(":")
     else:
         yield mosquitto_image.run()
+        delay()
         mosquitto_image.stop()
