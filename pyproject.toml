@@ -75,7 +75,7 @@ develop = [
   "isort<6",
   "black<25",
   "poethepoet<1",
-  "ruff",
+  "ruff<0.6",
 ]
 release = [
   "build<2",
@@ -152,7 +152,7 @@ format = [
   {cmd="isort pytest_mqtt testing"},
 ]
 lint = [
-  {cmd="ruff ."},
+  {cmd="ruff check ."},
   {cmd="black --check ."},
   {cmd="isort --check pytest_mqtt testing"},
 ]
