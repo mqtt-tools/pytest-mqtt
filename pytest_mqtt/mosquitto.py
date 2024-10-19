@@ -57,7 +57,8 @@ class Mosquitto(BaseImage):
         """
         docker_client = docker.from_env(version=self.docker_version)
         image_name = self.image
-        docker_client.images.pull(image_name)
+        if not docker_client.images.list(name=image_name):
+            docker_client.images.pull(image_name)
 
     def run(self):
         try:
