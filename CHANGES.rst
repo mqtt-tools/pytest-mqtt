@@ -5,6 +5,7 @@ pytest-mqtt changelog
 
 in progress
 ===========
+- paho-mqtt: Ignore deprecation warnings about Callback API v1
 
 2024-07-29 0.4.2
 ================

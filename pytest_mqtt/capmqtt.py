@@ -16,6 +16,7 @@ Source: https://github.com/hiveeyes/terkin-datalogger/blob/0.13.0/test/fixtures/
 import logging
 import threading
 import typing as t
+import warnings
 
 import paho.mqtt.client as mqtt
 import pytest
@@ -35,7 +36,9 @@ class MqttClientAdapter(threading.Thread):
             self.client = mqtt.Client()
         else:
             # paho-mqtt 2.x
-            self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", category=DeprecationWarning)
+                self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
         self.on_message_callback = on_message_callback
         self.host = host
         self.port = int(port)
