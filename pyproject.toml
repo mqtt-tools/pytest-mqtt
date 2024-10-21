@@ -76,7 +76,7 @@ develop = [
   "isort<6",
   "black<25",
   "poethepoet<1",
-  "ruff<0.7",
+  "ruff<0.8",
 ]
 release = [
   "build<2",
