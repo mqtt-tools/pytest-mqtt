@@ -33,9 +33,11 @@ class MqttClientAdapter(threading.Thread):
         if not hasattr(mqtt, "CallbackAPIVersion"):
             # paho-mqtt 1.x
             self.client = mqtt.Client()
+            self.use_legacy_api = True
         else:
             # paho-mqtt 2.x
             self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+            self.use_legacy_api = False
         self.on_message_callback = on_message_callback
         self.host = host
         self.port = int(port)
@@ -44,8 +46,8 @@ class MqttClientAdapter(threading.Thread):
     def setup(self):
         client = self.client
         client.on_socket_open = self.on_socket_open
-        client.on_connect = self.on_connect
-        client.on_subscribe = self.on_subscribe
+        client.on_connect = self.on_connect_v1 if self.use_legacy_api else self.on_connect
+        client.on_subscribe = self.on_subscribe_v1 if self.use_legacy_api else self.on_subscribe
         client.on_message = self.on_message
         if self.on_message_callback:
             client.on_message = self.on_message_callback
@@ -64,9 +66,15 @@ class MqttClientAdapter(threading.Thread):
 
     def on_socket_open(self, client, userdata, sock):
         logger.debug("[PYTEST] Opened socket to MQTT broker")
+        
+    def on_connect_v1(self, client, userdata, flags, rc): # legacy API version 1
+        logger.debug("[PYTEST] Connected to MQTT broker")
 
     def on_connect(self, client, userdata, flags, reason_code, properties):
         logger.debug("[PYTEST] Connected to MQTT broker")
+        
+    def on_subscribe_v1(self, client, userdata, mid, granted_qos, properties=None): # legacy API version 1
+        logger.debug("[PYTEST] Subscribed to MQTT topic(s)")
 
     def on_subscribe(self, client, userdata, mid, reason_codes, properties):
         logger.debug("[PYTEST] Subscribed to MQTT topic(s)")
