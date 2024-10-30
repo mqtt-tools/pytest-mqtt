@@ -16,7 +16,6 @@ Source: https://github.com/hiveeyes/terkin-datalogger/blob/0.13.0/test/fixtures/
 import logging
 import threading
 import typing as t
-import warnings
 
 import paho.mqtt.client as mqtt
 import pytest
