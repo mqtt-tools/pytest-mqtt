@@ -36,9 +36,7 @@ class MqttClientAdapter(threading.Thread):
             self.client = mqtt.Client()
         else:
             # paho-mqtt 2.x
-            with warnings.catch_warnings():
-                warnings.filterwarnings("ignore", category=DeprecationWarning)
-                self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+            self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self.on_message_callback = on_message_callback
         self.host = host
         self.port = int(port)
@@ -68,10 +66,10 @@ class MqttClientAdapter(threading.Thread):
     def on_socket_open(self, client, userdata, sock):
         logger.debug("[PYTEST] Opened socket to MQTT broker")
 
-    def on_connect(self, client, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, reason_code, properties):
         logger.debug("[PYTEST] Connected to MQTT broker")
 
-    def on_subscribe(self, client, userdata, mid, granted_qos, properties=None):
+    def on_subscribe(self, client, userdata, mid, reason_codes, properties):
         logger.debug("[PYTEST] Subscribed to MQTT topic(s)")
 
     def on_message(self, client, userdata, msg):
