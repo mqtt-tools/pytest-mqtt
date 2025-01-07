@@ -5,6 +5,9 @@ pytest-mqtt changelog
 
 in progress
 ===========
+
+2025-01-07 0.5.0
+================
 - paho-mqtt: Ignore deprecation warnings about Callback API v1
 - mosquitto: Don't always pull OCI image
 - Updated Paho API version to V2. Thank you, @hyperspacex2.

@@ -6,7 +6,7 @@
 
 [project]
 name = "pytest-mqtt"
-version = "0.4.2"
+version = "0.5.0"
 description = "pytest-mqtt supports testing systems based on MQTT"
 readme = "README.rst"
 keywords = [ "mosquitto", "mqtt", "paho", "pytest", "testing" ]
