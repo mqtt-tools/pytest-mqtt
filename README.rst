@@ -6,8 +6,9 @@ pytest-mqtt
 
 .. start-badges
 
-|ci-tests| |ci-coverage| |license| |pypi-downloads|
-|python-versions| |status| |pypi-version|
+|status| |license| |pypi-downloads| |pypi-version|
+
+|ci-tests| |ci-coverage| |python-versions|
 
 .. |ci-tests| image:: https://github.com/mqtt-tools/pytest-mqtt/actions/workflows/tests.yml/badge.svg
     :target: https://github.com/mqtt-tools/pytest-mqtt/actions/workflows/tests.yml
@@ -15,7 +16,7 @@ pytest-mqtt
 
 .. |ci-coverage| image:: https://codecov.io/gh/mqtt-tools/pytest-mqtt/branch/main/graph/badge.svg
     :target: https://codecov.io/gh/mqtt-tools/pytest-mqtt
-    :alt: Test suite code coverage
+    :alt: Code coverage
 
 .. |pypi-downloads| image:: https://pepy.tech/badge/pytest-mqtt/month
     :target: https://pepy.tech/project/pytest-mqtt
@@ -163,6 +164,6 @@ The project is licensed under the terms of the MIT license, see `LICENSE`_.
 .. _Create an issue: https://github.com/mqtt-tools/pytest-mqtt/issues/new
 .. _LICENSE: https://github.com/mqtt-tools/pytest-mqtt/blob/main/LICENSE
 .. _Mosquitto: https://github.com/eclipse/mosquitto
-.. _mqttwarn: https://github.com/jpmens/mqttwarn/
+.. _mqttwarn: https://github.com/mqtt-tools/mqttwarn
 .. _Paho MQTT Python Client: https://github.com/eclipse/paho.mqtt.python
 .. _terkin-datalogger: https://github.com/hiveeyes/terkin-datalogger/
