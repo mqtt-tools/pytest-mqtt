@@ -14,6 +14,7 @@ Source: https://github.com/hiveeyes/terkin-datalogger/blob/0.13.0/test/fixtures/
 
 .. _Mosquitto: https://github.com/eclipse/mosquitto
 """
+
 import os
 
 import docker
@@ -36,7 +37,6 @@ images.settings["mosquitto"] = {
 
 
 class Mosquitto(BaseImage):
-
     name = "mosquitto"
 
     def __init__(self, host: str = "localhost", port: int = 1883) -> None:
@@ -96,7 +96,6 @@ def mqtt_settings(pytestconfig) -> MqttSettings:
 
 @pytest.fixture(scope="session")
 def mosquitto(mqtt_settings: MqttSettings):
-
     host, port = mqtt_settings.host, mqtt_settings.port
 
     # Gracefully skip spinning up the Docker container if Mosquitto is already running.
