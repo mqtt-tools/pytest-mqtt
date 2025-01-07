@@ -17,7 +17,7 @@ authors = [
   {name = "Richard Pobering", email = "richard.pobering@panodata.org"},
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
   "Framework :: Pytest",
   "Intended Audience :: Customer Service",
