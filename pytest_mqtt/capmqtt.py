@@ -13,6 +13,7 @@ Source: https://github.com/hiveeyes/terkin-datalogger/blob/0.13.0/test/fixtures/
 
 .. _Paho MQTT Python Client: https://github.com/eclipse/paho.mqtt.python
 """
+
 import logging
 import threading
 import typing as t
@@ -94,7 +95,7 @@ class MqttCaptureFixture:
     def __init__(self, decode_utf8: t.Optional[bool], host: str = "localhost", port: int = 1883) -> None:
         """Creates a new funcarg."""
         self._buffer: t.List[MqttMessage] = []
-        self._decode_utf8: bool = decode_utf8
+        self._decode_utf8: bool = decode_utf8 or False
 
         self.mqtt_client = MqttClientAdapter(on_message_callback=self.on_message, host=host, port=port)
         self.mqtt_client.start()
@@ -124,7 +125,7 @@ class MqttCaptureFixture:
         return self._buffer
 
     @property
-    def records(self) -> t.List[t.Tuple[str, t.Union[str, bytes], t.Dict]]:
+    def records(self) -> t.List[t.Tuple[str, t.Union[str, bytes], t.Union[t.Dict, None]]]:
         return [(item.topic, item.payload, item.userdata) for item in self._buffer]
 
     def publish(self, topic: str, payload: str, **kwargs) -> mqtt.MQTTMessageInfo:

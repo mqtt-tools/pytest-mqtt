@@ -9,13 +9,13 @@ name = "pytest-mqtt"
 version = "0.4.2"
 description = "pytest-mqtt supports testing systems based on MQTT"
 readme = "README.rst"
-requires-python = ">=3.7"
-license = {text = "MIT"}
-keywords = ["mqtt", "pytest", "testing", "mosquitto", "paho"]
+keywords = [ "mosquitto", "mqtt", "paho", "pytest", "testing" ]
+license = { text = "MIT" }
 authors = [
-  {name = "Andreas Motl", email = "andreas.motl@panodata.org"},
-  {name = "Richard Pobering", email = "richard.pobering@panodata.org"},
+  { name = "Andreas Motl", email = "andreas.motl@panodata.org" },
+  { name = "Richard Pobering", email = "richard.pobering@panodata.org" },
 ]
+requires-python = ">=3.7"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
@@ -33,6 +33,7 @@ classifiers = [
   "Operating System :: POSIX :: Linux",
   "Operating System :: Unix",
   "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
@@ -61,53 +62,41 @@ dependencies = [
   "pytest-docker-fixtures<2",
 ]
 
-[project.entry-points.pytest11]
-capmqtt = "pytest_mqtt.capmqtt"
-mosquitto = "pytest_mqtt.mosquitto"
-
-[project.optional-dependencies]
-test = [
+optional-dependencies.develop = [
+  "mypy<1.12",
+  "poethepoet<1",
+  "pyproject-fmt<3",
+  "ruff<0.9",
+  "validate-pyproject<0.19",
+]
+optional-dependencies.release = [
+  "build<2",
+  "twine<7",
+]
+optional-dependencies.test = [
   "coverage<8",
   "pytest<9",
   "pytest-fixture-order<1",
   "pytest-ordering<1",
 ]
-develop = [
-  "isort<6",
-  "black<25",
-  "poethepoet<1",
-  "ruff<0.9",
-]
-release = [
-  "build<2",
-  "twine<7",
-]
+urls.changelog = "https://github.com/mqtt-tools/pytest-mqtt/blob/main/CHANGES.rst"
+urls.documentation = "https://github.com/mqtt-tools/pytest-mqtt"
+urls.homepage = "https://github.com/mqtt-tools/pytest-mqtt"
+urls.repository = "https://github.com/mqtt-tools/pytest-mqtt"
+entry-points.pytest11.capmqtt = "pytest_mqtt.capmqtt"
+entry-points.pytest11.mosquitto = "pytest_mqtt.mosquitto"
 
 [tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
-packages = ["pytest_mqtt"]
-
-[project.urls]
-homepage = "https://github.com/mqtt-tools/pytest-mqtt"
-documentation = "https://github.com/mqtt-tools/pytest-mqtt"
-repository = "https://github.com/mqtt-tools/pytest-mqtt"
-changelog = "https://github.com/mqtt-tools/pytest-mqtt/blob/main/CHANGES.rst"
-
+packages = [ "pytest_mqtt" ]
 
 # ==================
 # Tool configuration
 # ==================
+# Configuration snippets for pytest, coverage, and ruff.
 
-# Configuration snippets for Black, isort, pytest, coverage, and ruff.
-
-[tool.black]
+[tool.ruff]
 line-length = 120
-
-[tool.isort]
-profile = "black"
-skip_glob = "**/site-packages/**"
-skip_gitignore = false
-# src_paths = ["pytest_mqtt", "testing"]
 
 [tool.pytest.ini_options]
 minversion = "2.0"
@@ -116,7 +105,7 @@ addopts = """
   """
 log_level = "DEBUG"
 log_cli_level = "DEBUG"
-testpaths = ["testing"]
+testpaths = [ "testing" ]
 xfail_strict = true
 markers = [
   "capmqtt_decode_utf8: Capture MQTT messages as `str`, not `bytes`",
@@ -124,7 +113,7 @@ markers = [
 
 [tool.coverage.run]
 branch = false
-source = ["pytest_mqtt"]
+source = [ "pytest_mqtt" ]
 
 [tool.coverage.report]
 fail_under = 0
@@ -132,8 +121,20 @@ show_missing = true
 omit = [
 ]
 
-[tool.ruff]
-line-length = 120
+[tool.mypy]
+packages = [ "pytest_mqtt" ]
+exclude = [
+]
+ignore_missing_imports = true
+check_untyped_defs = false
+implicit_optional = true
+install_types = true
+no_implicit_optional = true
+non_interactive = true
+show_error_codes = true
+strict_equality = true
+warn_unused_ignores = true
+warn_redundant_casts = true
 
 
 # ===================
@@ -148,25 +149,30 @@ check = [
 ]
 
 format = [
-  {cmd="black ."},
-  {cmd="isort pytest_mqtt testing"},
+  { cmd = "ruff format ." },
+  # Configure Ruff not to auto-fix (remove!):
+  # unused imports (F401), unused variables (F841), `print` statements (T201), and commented-out code (ERA001).
+  { cmd = "ruff check --fix --ignore=ERA --ignore=F401 --ignore=F841 --ignore=T20 --ignore=ERA001 ." },
+  { cmd = "pyproject-fmt --keep-full-version pyproject.toml" },
 ]
+
 lint = [
-  {cmd="ruff check ."},
-  {cmd="black --check ."},
-  {cmd="isort --check pytest_mqtt testing"},
+  { cmd = "ruff format --check ." },
+  { cmd = "ruff check ." },
+  { cmd = "validate-pyproject pyproject.toml" },
+  { cmd = "mypy" },
 ]
 
 # When testing a pytest plugin, `coverage` needs to be
 # started before `pytest`. `pytest-cov` will not work.
 # https://stackoverflow.com/a/62224494
 test = [
-  {cmd="coverage run -m pytest"},
-  {cmd="coverage report"},
-  {cmd="coverage xml"},
+  { cmd = "coverage run -m pytest" },
+  { cmd = "coverage report" },
+  { cmd = "coverage xml" },
 ]
 
 release = [
-  {cmd="python -m build"},
-  {cmd="twine upload --skip-existing dist/*.tar.gz dist/*.whl"},
+  { cmd = "python -m build" },
+  { cmd = "twine upload --skip-existing dist/*.tar.gz dist/*.whl" },
 ]
