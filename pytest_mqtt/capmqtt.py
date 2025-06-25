@@ -28,7 +28,14 @@ logger = logging.getLogger(__name__)
 
 
 class MqttClientAdapter(threading.Thread):
-    def __init__(self, on_message_callback: t.Optional[t.Callable] = None, host: str = "localhost", port: int = 1883, username: str = "guest", password: str = "guest"):
+    def __init__(
+        self,
+        on_message_callback: t.Optional[t.Callable] = None,
+        host: str = "localhost",
+        port: int = 1883,
+        username: str = "guest",
+        password: str = "guest",
+    ):
         super().__init__()
         self.client: mqtt.Client
         if not hasattr(mqtt, "CallbackAPIVersion"):
@@ -96,12 +103,21 @@ class MqttClientAdapter(threading.Thread):
 class MqttCaptureFixture:
     """Provides access and control of log capturing."""
 
-    def __init__(self, decode_utf8: t.Optional[bool], host: str = "localhost", port: int = 1883, username: str = "guest", password: str = "guest") -> None:
+    def __init__(
+        self,
+        decode_utf8: t.Optional[bool],
+        host: str = "localhost",
+        port: int = 1883,
+        username: str = "guest",
+        password: str = "guest",
+    ) -> None:
         """Creates a new funcarg."""
         self._buffer: t.List[MqttMessage] = []
         self._decode_utf8: bool = decode_utf8 or False
 
-        self.mqtt_client = MqttClientAdapter(on_message_callback=self.on_message, host=host, port=port, username=username, password=password)
+        self.mqtt_client = MqttClientAdapter(
+            on_message_callback=self.on_message, host=host, port=port, username=username, password=password
+        )
         self.mqtt_client.start()
         # time.sleep(0.1)
 
@@ -156,7 +172,9 @@ def capmqtt(request, mqtt_settings: MqttSettings):
         or getattr(request.module, "capmqtt_decode_utf8", False)
         or request.node.get_closest_marker("capmqtt_decode_utf8") is not None
     )
-    result = MqttCaptureFixture(decode_utf8=capmqtt_decode_utf8, host=host, port=port, username=username, password=password)
+    result = MqttCaptureFixture(
+        decode_utf8=capmqtt_decode_utf8, host=host, port=port, username=username, password=password
+    )
     delay()
     yield result
     result.finalize()

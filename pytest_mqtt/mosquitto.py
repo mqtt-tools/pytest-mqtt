@@ -86,7 +86,6 @@ def pytest_addoption(parser) -> None:
     parser.addoption("--mqtt-port", action="store", type=int, default=1883, help="MQTT port number")
     parser.addoption("--mqtt-username", action="store", type=str, default="guest", help="Username for connection")
     parser.addoption("--mqtt-password", action="store", type=str, default="guest", help="Password for connection")
-    
 
 
 @pytest.fixture(scope="session")
