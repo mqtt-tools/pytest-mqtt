@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 
 class MqttClientAdapter(threading.Thread):
-    def __init__(self, on_message_callback: t.Optional[t.Callable] = None, host: str = "localhost", port: int = 1883):
+    def __init__(self, on_message_callback: t.Optional[t.Callable] = None, host: str = "localhost", port: int = 1883, username: str = "guest", password: str = "guest"):
         super().__init__()
         self.client: mqtt.Client
         if not hasattr(mqtt, "CallbackAPIVersion"):
@@ -42,6 +42,9 @@ class MqttClientAdapter(threading.Thread):
         self.on_message_callback = on_message_callback
         self.host = host
         self.port = int(port)
+        self.username = username
+        self.password = password
+
         self.setup()
 
     def setup(self):
@@ -52,6 +55,7 @@ class MqttClientAdapter(threading.Thread):
         client.on_message = self.on_message
         if self.on_message_callback:
             client.on_message = self.on_message_callback
+        client.username_pw_set(self.username, self.password)
 
         logger.debug("[PYTEST] Connecting to MQTT broker")
         client.connect(host=self.host, port=self.port)
@@ -92,12 +96,12 @@ class MqttClientAdapter(threading.Thread):
 class MqttCaptureFixture:
     """Provides access and control of log capturing."""
 
-    def __init__(self, decode_utf8: t.Optional[bool], host: str = "localhost", port: int = 1883) -> None:
+    def __init__(self, decode_utf8: t.Optional[bool], host: str = "localhost", port: int = 1883, username: str = "guest", password: str = "guest") -> None:
         """Creates a new funcarg."""
         self._buffer: t.List[MqttMessage] = []
         self._decode_utf8: bool = decode_utf8 or False
 
-        self.mqtt_client = MqttClientAdapter(on_message_callback=self.on_message, host=host, port=port)
+        self.mqtt_client = MqttClientAdapter(on_message_callback=self.on_message, host=host, port=port, username=username, password=password)
         self.mqtt_client.start()
         # time.sleep(0.1)
 
@@ -145,13 +149,14 @@ def capmqtt(request, mqtt_settings: MqttSettings):
     # https://docs.pytest.org/en/7.1.x/how-to/fixtures.html#using-markers-to-pass-data-to-fixtures
 
     host, port = mqtt_settings.host, mqtt_settings.port
+    username, password = mqtt_settings.username, mqtt_settings.password
 
     capmqtt_decode_utf8 = (
         getattr(request.config.option, "capmqtt_decode_utf8", False)
         or getattr(request.module, "capmqtt_decode_utf8", False)
         or request.node.get_closest_marker("capmqtt_decode_utf8") is not None
     )
-    result = MqttCaptureFixture(decode_utf8=capmqtt_decode_utf8, host=host, port=port)
+    result = MqttCaptureFixture(decode_utf8=capmqtt_decode_utf8, host=host, port=port, username=username, password=password)
     delay()
     yield result
     result.finalize()
