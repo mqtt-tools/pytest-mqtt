@@ -58,6 +58,9 @@ Capture MQTT messages, using the `Paho MQTT Python Client`_, in the spirit of
 MQTT server host and port are configurable via pytest cli arguments:
 ``--mqtt-host`` and ``--mqtt-port``. Default values are ``localhost``/``1883``.
 
+You may additionally specify a username and password for connecting to the broker with:
+``--mqtt-username`` and ``--mqtt-password``. Default values are ``guest``/``guest``.
+
 ``mosquitto`` fixture
 =====================
 

@@ -17,3 +17,5 @@ class MqttMessage:
 class MqttSettings:
     host: str
     port: int
+    username: str
+    password: str

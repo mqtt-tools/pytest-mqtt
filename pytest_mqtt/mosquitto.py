@@ -84,6 +84,8 @@ def is_mosquitto_running(host: str, port: int) -> bool:
 def pytest_addoption(parser) -> None:
     parser.addoption("--mqtt-host", action="store", type=str, default="localhost", help="MQTT host name")
     parser.addoption("--mqtt-port", action="store", type=int, default=1883, help="MQTT port number")
+    parser.addoption("--mqtt-username", action="store", type=str, default="guest", help="Username for connection")
+    parser.addoption("--mqtt-password", action="store", type=str, default="guest", help="Password for connection")
 
 
 @pytest.fixture(scope="session")
@@ -91,6 +93,8 @@ def mqtt_settings(pytestconfig) -> MqttSettings:
     return MqttSettings(
         host=pytestconfig.getoption("--mqtt-host"),
         port=pytestconfig.getoption("--mqtt-port"),
+        username=pytestconfig.getoption("--mqtt-username"),
+        password=pytestconfig.getoption("--mqtt-password"),
     )
 
 
