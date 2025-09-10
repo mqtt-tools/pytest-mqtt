@@ -6,6 +6,12 @@ pytest-mqtt changelog
 in progress
 ===========
 
+2025-09-10 0.6.0
+================
+
+- Added support for connecting with credentials. Thanks, @OliverWoolland
+  and @tiniuclx.
+
 2025-01-07 0.5.0
 ================
 - paho-mqtt: Ignore deprecation warnings about Callback API v1
