@@ -54,7 +54,7 @@ class MqttClientAdapter(threading.Thread):
 
         self.setup()
 
-    def setup(self):
+    def setup(self) -> None:
         client = self.client
         client.on_socket_open = self.on_socket_open
         client.on_connect = self.on_connect_v1 if self.use_legacy_api else self.on_connect
@@ -68,27 +68,29 @@ class MqttClientAdapter(threading.Thread):
         client.connect(host=self.host, port=self.port)
         client.subscribe("#")
 
-    def run(self):
+    def run(self) -> None:
         self.client.loop_start()
 
-    def stop(self):
+    def stop(self) -> None:
         logger.debug("[PYTEST] Disconnecting from MQTT broker")
         self.client.disconnect()
         self.client.loop_stop()
 
-    def on_socket_open(self, client, userdata, sock):
+    def on_socket_open(self, client: mqtt.Client, userdata, sock) -> None:
         logger.debug("[PYTEST] Opened socket to MQTT broker")
 
-    def on_connect_v1(self, client, userdata, flags, rc):  # legacy API version 1
+    def on_connect_v1(self, client: mqtt.Client, userdata, flags, rc) -> None:  # legacy API version 1
         logger.debug("[PYTEST] Connected to MQTT broker")
 
-    def on_connect(self, client, userdata, flags, reason_code, properties):
+    def on_connect(self, client: mqtt.Client, userdata, flags, reason_code, properties) -> None:
         logger.debug("[PYTEST] Connected to MQTT broker")
 
-    def on_subscribe_v1(self, client, userdata, mid, granted_qos, properties=None):  # legacy API version 1
+    def on_subscribe_v1(
+        self, client: mqtt.Client, userdata, mid, granted_qos, properties=None
+    ) -> None:  # legacy API version 1
         logger.debug("[PYTEST] Subscribed to MQTT topic(s)")
 
-    def on_subscribe(self, client, userdata, mid, reason_codes, properties):
+    def on_subscribe(self, client: mqtt.Client, userdata, mid, reason_codes, properties) -> None:
         logger.debug("[PYTEST] Subscribed to MQTT topic(s)")
 
     def on_message(self, client, userdata, msg):

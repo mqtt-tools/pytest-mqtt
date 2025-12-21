@@ -5,7 +5,6 @@ from testing.util import DummyServer
 
 
 @pytest.fixture(scope="session")
-@pytest.mark.early
 def no_mqtt_broker(request):
     server = DummyServer("localhost", 1883)
     server.start()
@@ -15,7 +14,6 @@ def no_mqtt_broker(request):
 
 
 @pytest.fixture(scope="session")
-@pytest.mark.late
 def mosquitto_mqtt_broker(mosquitto):
     return mosquitto
 

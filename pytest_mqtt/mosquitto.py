@@ -43,11 +43,11 @@ class Mosquitto(BaseImage):
         self.host = host
         self.port = port
 
-    def check(self):
+    def check(self) -> bool:
         # TODO: Add real implementation.
         return True
 
-    def pull_image(self):
+    def pull_image(self) -> None:
         """
         Image needs to be pulled explicitly.
         Workaround against `404 Client Error: Not Found for url: http+docker://localhost/v1.23/containers/create`.
