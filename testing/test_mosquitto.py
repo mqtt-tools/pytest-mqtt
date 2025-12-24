@@ -18,8 +18,7 @@ def mosquitto_mqtt_broker(mosquitto):
     return mosquitto
 
 
-@pytest.mark.skip(reason="Unable to run together with other test cases")
-@pytest.mark.run(order=1)
+@pytest.mark.run(order=-1)
 def test_mosquitto_running(no_mqtt_broker, mosquitto_mqtt_broker):
-    assert mosquitto_mqtt_broker == ("localhost", 1883)
-    # no_mqtt_broker.shutdown()
+    assert mosquitto_mqtt_broker == ("127.0.0.1", "1883")
+    no_mqtt_broker.shutdown()
