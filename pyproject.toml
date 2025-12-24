@@ -101,7 +101,7 @@ line-length = 120
 [tool.pytest.ini_options]
 minversion = "2.0"
 addopts = """
-  -rfEX -p pytester --strict-markers --verbosity=3
+  -rfEXS -p pytester --strict-markers --verbosity=3
   """
 log_level = "DEBUG"
 log_cli_level = "DEBUG"
