@@ -96,7 +96,12 @@ class MqttClientAdapter(threading.Thread):
     def on_message(self, client, userdata, msg):
         logger.debug("[PYTEST] MQTT message received: %s", msg)
 
-    def publish(self, topic: str, payload: str, **kwargs) -> mqtt.MQTTMessageInfo:
+    def publish(
+        self,
+        topic: str,
+        payload: t.Union[str, bytes, bytearray, int, float, None],
+        **kwargs,
+    ) -> mqtt.MQTTMessageInfo:
         message_info = self.client.publish(topic, payload, **kwargs)
         message_info.wait_for_publish()
         return message_info
@@ -150,7 +155,12 @@ class MqttCaptureFixture:
     def records(self) -> t.List[t.Tuple[str, t.Union[str, bytes], t.Union[t.Dict, None]]]:
         return [(item.topic, item.payload, item.userdata) for item in self._buffer]
 
-    def publish(self, topic: str, payload: str, **kwargs) -> mqtt.MQTTMessageInfo:
+    def publish(
+        self,
+        topic: str,
+        payload: t.Union[str, bytes, bytearray, int, float, None],
+        **kwargs,
+    ) -> mqtt.MQTTMessageInfo:
         message_info = self.mqtt_client.publish(topic=topic, payload=payload, **kwargs)
         # Make the MQTT client publish and receive the message.
         delay()
