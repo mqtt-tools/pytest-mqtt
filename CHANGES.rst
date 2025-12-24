@@ -5,6 +5,9 @@ pytest-mqtt changelog
 
 in progress
 ===========
+
+2025-12-24 0.6.1
+================
 - Improve type hints and add ``py.typed``. Thanks, @RobLevv.
 
 2025-09-10 0.6.0
