@@ -5,10 +5,10 @@ pytest-mqtt changelog
 
 in progress
 ===========
+- Improve type hints and add ``py.typed``. Thanks, @RobLevv.
 
 2025-09-10 0.6.0
 ================
-
 - Added support for connecting with credentials. Thanks, @OliverWoolland
   and @tiniuclx.
 
