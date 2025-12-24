@@ -75,7 +75,6 @@ optional-dependencies.release = [
 optional-dependencies.test = [
   "coverage<8",
   "pytest<9",
-  "pytest-fixture-order<1",
   "pytest-httpserver<2",
   "pytest-ordering<1",
 ]
