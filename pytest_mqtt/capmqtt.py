@@ -127,7 +127,12 @@ class MqttCaptureFixture:
         self._decode_utf8: bool = decode_utf8 or False
 
         self.mqtt_client = MqttClientAdapter(
-            on_message_callback=self.on_message, host=host, port=port, username=username, password=password, subscribe_all=subscribe_all
+            on_message_callback=self.on_message,
+            host=host,
+            port=port,
+            username=username,
+            password=password,
+            subscribe_all=subscribe_all,
         )
         self.mqtt_client.start()
         # time.sleep(0.1)
@@ -190,7 +195,12 @@ def capmqtt(request, mqtt_settings: MqttSettings):
         or request.node.get_closest_marker("capmqtt_decode_utf8") is not None
     )
     result = MqttCaptureFixture(
-        decode_utf8=capmqtt_decode_utf8, host=host, port=port, username=username, password=password, subscribe_all=subscribe_all
+        decode_utf8=capmqtt_decode_utf8,
+        host=host,
+        port=port,
+        username=username,
+        password=password,
+        subscribe_all=subscribe_all,
     )
     delay()
     yield result
