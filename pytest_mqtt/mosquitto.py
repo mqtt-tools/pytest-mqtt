@@ -86,6 +86,7 @@ def pytest_addoption(parser) -> None:
     parser.addoption("--mqtt-port", action="store", type=int, default=1883, help="MQTT port number")
     parser.addoption("--mqtt-username", action="store", type=str, default="guest", help="Username for connection")
     parser.addoption("--mqtt-password", action="store", type=str, default="guest", help="Password for connection")
+    parser.addoption("--no-subscribe-all", action="store_false", dest="subscribe_all", help="Do not subscribe to all topics")
 
 
 @pytest.fixture(scope="session")
@@ -95,6 +96,7 @@ def mqtt_settings(pytestconfig) -> MqttSettings:
         port=pytestconfig.getoption("--mqtt-port"),
         username=pytestconfig.getoption("--mqtt-username"),
         password=pytestconfig.getoption("--mqtt-password"),
+        subscribe_all=pytestconfig.getoption("subscribe_all"),
     )
 
 
