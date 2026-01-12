@@ -62,8 +62,8 @@ You may additionally specify a username and password for connecting to the broke
 ``--mqtt-username`` and ``--mqtt-password``. Default values are ``guest``/``guest``.
 
 By default, the test fixture subscribes to all topics, listening on "#". This can be
-disabled with the ''--no-subscribe-all`` option. You can then subscribe to the topics
-you are interested in within each test using ``capmqtt.mqtt_client.client.subscribe(cpe.info)``
+disabled with the ``--no-subscribe-all`` option. You can then subscribe to the topics
+you are interested in within each test using ``capmqtt.mqtt_client.client.subscribe(cpe.info)``.
 
 ``mosquitto`` fixture
 =====================
