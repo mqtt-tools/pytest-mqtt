@@ -19,3 +19,4 @@ class MqttSettings:
     port: int
     username: str
     password: str
+    subscribe_all: bool
