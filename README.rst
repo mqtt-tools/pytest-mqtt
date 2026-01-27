@@ -61,7 +61,7 @@ MQTT server host and port are configurable via pytest cli arguments:
 You may additionally specify a username and password for connecting to the broker with:
 ``--mqtt-username`` and ``--mqtt-password``. Default values are ``guest``/``guest``.
 
-By default, the test fixture subscribes to all topics, listening on "#". This can be
+By default, the test fixture subscribes to all topics, listening on ``#``. This can be
 disabled with the ``--no-subscribe-all`` option. You can then subscribe to the topics
 you are interested in within each test using ``capmqtt.mqtt_client.client.subscribe(cpe.info)``.
 
