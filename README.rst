@@ -34,7 +34,7 @@ pytest-mqtt
     :target: https://pypi.org/project/pytest-mqtt/
     :alt: Supported Python versions
 
-.. |license| image:: https://img.shields.io/pypi/l/pytest-mqtt.svg
+.. |license| image:: https://img.shields.io/badge/license-MIT-green.svg
     :target: https://github.com/mqtt-tools/pytest-mqtt/blob/main/LICENSE
     :alt: Project license
 
