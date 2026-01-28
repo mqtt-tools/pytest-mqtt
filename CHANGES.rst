@@ -5,6 +5,7 @@ pytest-mqtt changelog
 
 in progress
 ===========
+- Add ``--no-subscribe-all`` command line option, for testing against a busy MQTT broker.
 
 2025-12-24 0.6.2
 ================

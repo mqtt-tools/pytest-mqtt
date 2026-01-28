@@ -35,6 +35,7 @@ class MqttClientAdapter(threading.Thread):
         port: int = 1883,
         username: str = "guest",
         password: str = "guest",
+        subscribe_all: bool = True,
     ):
         super().__init__()
         self.client: mqtt.Client
@@ -51,6 +52,7 @@ class MqttClientAdapter(threading.Thread):
         self.port = int(port)
         self.username = username
         self.password = password
+        self.subscribe_all = subscribe_all
 
         self.setup()
 
@@ -66,7 +68,8 @@ class MqttClientAdapter(threading.Thread):
 
         logger.debug("[PYTEST] Connecting to MQTT broker")
         client.connect(host=self.host, port=self.port)
-        client.subscribe("#")
+        if self.subscribe_all:
+            client.subscribe("#")
 
     def run(self) -> None:
         self.client.loop_start()
@@ -117,13 +120,19 @@ class MqttCaptureFixture:
         port: int = 1883,
         username: str = "guest",
         password: str = "guest",
+        subscribe_all: bool = True,
     ) -> None:
         """Creates a new funcarg."""
         self._buffer: t.List[MqttMessage] = []
         self._decode_utf8: bool = decode_utf8 or False
 
         self.mqtt_client = MqttClientAdapter(
-            on_message_callback=self.on_message, host=host, port=port, username=username, password=password
+            on_message_callback=self.on_message,
+            host=host,
+            port=port,
+            username=username,
+            password=password,
+            subscribe_all=subscribe_all,
         )
         self.mqtt_client.start()
         # time.sleep(0.1)
@@ -178,6 +187,7 @@ def capmqtt(request, mqtt_settings: MqttSettings):
 
     host, port = mqtt_settings.host, mqtt_settings.port
     username, password = mqtt_settings.username, mqtt_settings.password
+    subscribe_all = mqtt_settings.subscribe_all
 
     capmqtt_decode_utf8 = (
         getattr(request.config.option, "capmqtt_decode_utf8", False)
@@ -185,7 +195,12 @@ def capmqtt(request, mqtt_settings: MqttSettings):
         or request.node.get_closest_marker("capmqtt_decode_utf8") is not None
     )
     result = MqttCaptureFixture(
-        decode_utf8=capmqtt_decode_utf8, host=host, port=port, username=username, password=password
+        decode_utf8=capmqtt_decode_utf8,
+        host=host,
+        port=port,
+        username=username,
+        password=password,
+        subscribe_all=subscribe_all,
     )
     delay()
     yield result
