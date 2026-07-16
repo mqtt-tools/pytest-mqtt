@@ -20,6 +20,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: ["ubuntu-22.04"]
         python-version: [
@@ -33,7 +34,10 @@ jobs:
           "3.14",
         ]
         paho-mqtt-version: ["1.*", "2.*"]
-      fail-fast: false
+        include:
+          - os: "ubuntu-latest"
+            paho-mqtt-version: "2.*"
+            python-version: "3.15-dev"
 
     env:
       OS: ${{ matrix.os }}
