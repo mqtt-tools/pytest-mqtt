@@ -71,7 +71,7 @@ optional-dependencies.develop = [
 ]
 optional-dependencies.release = [
   "build<2",
-  "twine<7",
+  "twine<8",
 ]
 optional-dependencies.test = [
   "coverage<8",
