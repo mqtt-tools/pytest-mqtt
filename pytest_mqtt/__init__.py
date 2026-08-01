@@ -1,7 +1,7 @@
 try:
-    from importlib.metadata import PackageNotFoundError, version  # noqa
+    from importlib.metadata import PackageNotFoundError, version
 except ImportError:  # pragma: no cover
-    from importlib_metadata import PackageNotFoundError, version  # type: ignore[no-redef]  # noqa
+    from importlib_metadata import PackageNotFoundError, version  # type: ignore[no-redef]
 
 from .model import MqttMessage  # noqa: F401
 

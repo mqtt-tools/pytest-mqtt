@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2020-2022 Andreas Motl <andreas.motl@panodata.org>
 # Copyright (c) 2020-2022 Richard Pobering <richard.pobering@panodata.org>
 #
@@ -64,14 +62,16 @@ class Mosquitto(BaseImage):
         try:
             docker_client = docker.from_env(version=self.docker_version)
             docker_url = docker_client.api.base_url
-        except Exception:
-            raise ConnectionError("Cannot connect to the Docker daemon. Is the docker daemon running?")
+        except Exception as e:
+            raise ConnectionError("Cannot connect to the Docker daemon. Is the docker daemon running?") from e
         try:
             docker_client.ping()
-        except Exception:
-            raise ConnectionError(f"Cannot connect to the Docker daemon at {docker_url}. Is the docker daemon running?")
+        except Exception as e:
+            raise ConnectionError(
+                f"Cannot connect to the Docker daemon at {docker_url}. Is the docker daemon running?"
+            ) from e
         self.pull_image()
-        return super(Mosquitto, self).run()
+        return super().run()
 
 
 mosquitto_image = Mosquitto()

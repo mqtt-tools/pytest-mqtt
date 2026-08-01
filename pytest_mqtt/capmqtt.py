@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2020-2022 Andreas Motl <andreas.motl@panodata.org>
 # Copyright (c) 2020-2022 Richard Pobering <richard.pobering@panodata.org>
 #
@@ -13,6 +12,8 @@ Source: https://github.com/hiveeyes/terkin-datalogger/blob/0.13.0/test/fixtures/
 
 .. _Paho MQTT Python Client: https://github.com/eclipse/paho.mqtt.python
 """
+
+from __future__ import annotations
 
 import logging
 import threading
@@ -30,7 +31,7 @@ logger = logging.getLogger(__name__)
 class MqttClientAdapter(threading.Thread):
     def __init__(
         self,
-        on_message_callback: t.Optional[t.Callable] = None,
+        on_message_callback: t.Callable | None = None,
         host: str = "localhost",
         port: int = 1883,
         username: str = "guest",
@@ -102,7 +103,7 @@ class MqttClientAdapter(threading.Thread):
     def publish(
         self,
         topic: str,
-        payload: t.Union[str, bytes, bytearray, int, float, None],
+        payload: str | bytes | bytearray | float | None,
         **kwargs,
     ) -> mqtt.MQTTMessageInfo:
         message_info = self.client.publish(topic, payload, **kwargs)
@@ -115,7 +116,7 @@ class MqttCaptureFixture:
 
     def __init__(
         self,
-        decode_utf8: t.Optional[bool],
+        decode_utf8: bool | None,
         host: str = "localhost",
         port: int = 1883,
         username: str = "guest",
@@ -123,7 +124,7 @@ class MqttCaptureFixture:
         subscribe_all: bool = True,
     ) -> None:
         """Creates a new funcarg."""
-        self._buffer: t.List[MqttMessage] = []
+        self._buffer: list[MqttMessage] = []
         self._decode_utf8: bool = decode_utf8 or False
 
         self.mqtt_client = MqttClientAdapter(
@@ -157,17 +158,17 @@ class MqttCaptureFixture:
         self._buffer = []
 
     @property
-    def messages(self) -> t.List[MqttMessage]:
+    def messages(self) -> list[MqttMessage]:
         return self._buffer
 
     @property
-    def records(self) -> t.List[t.Tuple[str, t.Union[str, bytes], t.Union[t.Dict, None]]]:
+    def records(self) -> list[tuple[str, str | bytes, dict | None]]:
         return [(item.topic, item.payload, item.userdata) for item in self._buffer]
 
     def publish(
         self,
         topic: str,
-        payload: t.Union[str, bytes, bytearray, int, float, None],
+        payload: str | bytes | bytearray | float | None,
         **kwargs,
     ) -> mqtt.MQTTMessageInfo:
         message_info = self.mqtt_client.publish(topic=topic, payload=payload, **kwargs)

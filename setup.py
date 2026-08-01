@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This is a shim to hopefully allow GitHub to detect the package.
 # The build is done with Poetry.
 

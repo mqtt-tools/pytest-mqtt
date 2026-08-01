@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import dataclasses
-import typing as t
 
 
 @dataclasses.dataclass
@@ -9,8 +10,8 @@ class MqttMessage:
     """
 
     topic: str
-    payload: t.Union[str, bytes]
-    userdata: t.Optional[t.Union[t.Dict, None]]
+    payload: str | bytes
+    userdata: None | dict
 
 
 @dataclasses.dataclass
