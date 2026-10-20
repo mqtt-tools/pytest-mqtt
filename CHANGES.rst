@@ -5,6 +5,9 @@ pytest-mqtt changelog
 
 in progress
 ===========
+
+2026-10-20 0.7.1
+================
 - CI: Validated on Python 3.15
 
 2026-01-28 0.7.0
